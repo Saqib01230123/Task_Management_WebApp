@@ -7,16 +7,20 @@ from pathlib import Path
 import os
 import dj_database_url
 
+# Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-8o0k+@)^&lmrx@m=sxj@m*t(jodv9nev@tde-7v$l(^2z1ih$p')
+# Security
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-8o0k+@)^&lmrx@m=sxj@m*t(jodv9nev@tde-7v$l(^2z1ih$p'
+)
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']  # Consider restricting this in production
 
-
-# Application definition
+# Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -28,6 +32,7 @@ INSTALLED_APPS = [
     'tasks.apps.TasksConfig',
 ]
 
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -41,6 +46,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'task_management.urls'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -59,23 +65,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'task_management.wsgi.application'
 
-# Database configuration (SQLite by default, compatible with dj_database_url)
-
-import platform
-
-if platform.system() == 'Windows':
-    SQLITE_PATH = BASE_DIR / 'db.sqlite3'
-else:
-    SQLITE_PATH = '/opt/render/project/src/data/db.sqlite3'
-
+# Database - SQLite (used in /tmp/ to be compatible with Render)
 DATABASES = {
-    'default': dj_database_url.config(
-        default=f'sqlite:///{SQLITE_PATH}',
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/tmp/db.sqlite3',
+    }
 }
-
-
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -99,18 +95,18 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'tasks', 'static'),
 ]
 
-# WhiteNoise for serving static files
+# WhiteNoise storage backend
 if not DEBUG:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 else:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-# Login and logout redirects
+# Auth redirects
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'home'
 
-# ✅ CSRF and session security for Render deployment
+# CSRF & session security
 CSRF_TRUSTED_ORIGINS = [
     'https://task-management-webapp-29a8.onrender.com'
 ]
@@ -118,5 +114,5 @@ CSRF_TRUSTED_ORIGINS = [
 CSRF_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_SECURE = not DEBUG
 
-# Default primary key field
+# Default primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
