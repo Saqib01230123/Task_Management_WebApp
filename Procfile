@@ -1,1 +1,1 @@
-web: bash build.sh 
+web: gunicorn task_management.wsgi:application
