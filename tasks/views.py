@@ -118,48 +118,7 @@ class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         project = self.get_object()
         return self.request.user.is_staff or project.owner == self.request.user
-def dashboard_view(request):
-    return render(request, 'tasks/dashboard.html')
 
-from django.shortcuts import render
-
-def task_list_view(request):
-    # Fetch tasks, etc.
-    return render(request, 'tasks/task_list.html')
-
-# tasks/views.py
-from django.shortcuts import render
-
-def project_list_view(request):
-    # Fetch projects data and render a template
-    return render(request, 'tasks/project_list.html')
-
-# tasks/views.py
-from django.shortcuts import render, redirect
-
-def task_create_view(request):
-    if request.method == 'POST':
-        # handle form submission for creating task
-        pass
-    # otherwise, show form
-    return render(request, 'tasks/task_create.html')
-
-# tasks/views.py
-from django.shortcuts import render, redirect
-
-def project_create_view(request):
-    if request.method == 'POST':
-        # process form data here to create a project
-        pass
-    # Show form page
-    return render(request, 'tasks/project_create.html')
-
-# tasks/views.py
-from django.shortcuts import render
-
-def user_profile_view(request):
-    # Fetch user info or profile data here if needed
-    return render(request, 'tasks/user_profile.html')
 
 
 
