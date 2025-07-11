@@ -1,10 +1,13 @@
+
 services:
   - type: web
-    name: task_management-webapp
+    name: task_management
     env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn task_management.wsgi:application"
-    envVars:
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py migrate
+    startCommand: gunicorn task_management.wsgi:application
+envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: task_management.settings
       - key: SECRET_KEY

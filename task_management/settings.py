@@ -59,12 +59,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'task_management.wsgi.application'
 
 # Database configuration (SQLite by default, compatible with dj_database_url)
+
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
+        default='sqlite:////opt/render/project/src/data/db.sqlite3',
         conn_max_age=600
     )
 }
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
