@@ -87,7 +87,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
@@ -95,11 +94,11 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'tasks', 'static'),
 ]
 
-# WhiteNoise storage backend
 if not DEBUG:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 else:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
 
 # Auth redirects
 LOGIN_REDIRECT_URL = 'dashboard'
