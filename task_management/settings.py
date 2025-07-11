@@ -13,7 +13,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-8o0k+@)^&lmrx@m=sxj@m
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['.onrender.com', 'localhost']
+ALLOWED_HOSTS = ['*']
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -60,12 +61,20 @@ WSGI_APPLICATION = 'task_management.wsgi.application'
 
 # Database configuration (SQLite by default, compatible with dj_database_url)
 
+import platform
+
+if platform.system() == 'Windows':
+    SQLITE_PATH = BASE_DIR / 'db.sqlite3'
+else:
+    SQLITE_PATH = '/opt/render/project/src/data/db.sqlite3'
+
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:////opt/render/project/src/data/db.sqlite3',
+        default=f'sqlite:///{SQLITE_PATH}',
         conn_max_age=600
     )
 }
+
 
 
 # Password validation
