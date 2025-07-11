@@ -40,21 +40,10 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='tasks/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='tasks/logout.html', next_page='/'), name='logout'),
     path('health/', health_check, name='health_check'),
-    # In tasks/urls.py
-    path('dashboard/', views.dashboard_view, name='dashboard'),
+   
  
 
-    # other paths ...
-    path('tasks/', views.task_list_view, name='task-list'),
 
-    path('projects/', views.project_list_view, name='project-list'), 
-
-    path('tasks/create/', views.task_create_view, name='task-create'),  
-
-    path('projects/create/', views.project_create_view, name='project-create'), 
-
-    path('profile/', views.user_profile_view, name='user-profile'),
-]
 
 
 # Serve static files during development
